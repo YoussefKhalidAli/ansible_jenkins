@@ -1,0 +1,62 @@
+---
+- name: Edit multiple Jenkins credentials
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - s.yml
+
+  tasks:
+    - name: Update userAndPass credential password
+      jenkins_credential:
+        name: "userpass-id"
+        type: "userAndPass"
+        command: "update"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+        description: "Updated user/pass credential"
+        username: "user2"
+        password: "newpass1"
+
+    - name: Update file credential description (no file change)
+      jenkins_credential:
+        name: "file-id"
+        type: "file"
+        command: "update"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+        description: "Updated file credential description"
+        filePath: "newsecret.pem"
+
+    - name: Update text credential secret
+      jenkins_credential:
+        name: "text-id"
+        type: "text"
+        command: "update"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+        description: "Updated text credential"
+        text: "newsecrettext"
+
+    - name: Update githubApp credential private key or description
+      jenkins_credential:
+        name: "githubapp-id"
+        type: "githubApp"
+        command: "update"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+        description: "Updated GitHub App credential"
+        appId: "12345"
+        filePath: "newsecret.pem"
+        owner: "github_owner"
+
+    - name: Update sshKey credential passPhrase (optional)
+      jenkins_credential:
+        name: "sshkey-id"
+        type: "sshKey"
+        command: "update"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+        description: "Updated SSH key credential"
+        username: "sshuser"
+        filePath: "newsecret.pem"
+        passPhrase: "newpassphrase"

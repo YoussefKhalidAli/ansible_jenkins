@@ -1,0 +1,64 @@
+---
+- name: Delete multiple Jenkins credentials
+  hosts: localhost
+  gather_facts: no
+  vars_files:
+    - token.yml
+
+  tasks:
+    - name: Delete userAndPass credential
+      jenkins_credential:
+        name: "userpass-id"
+        command: "delete"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+
+    - name: Delete file credential
+      jenkins_credential:
+        name: "file-id"
+        command: "delete"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+
+    - name: Delete text credential
+      jenkins_credential:
+        name: "text-id"
+        command: "delete"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+
+    - name: Delete githubApp credential
+      jenkins_credential:
+        name: "githubapp-id"
+        command: "delete"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+
+    - name: Delete sshKey credential
+      jenkins_credential:
+        name: "sshkey-id"
+        command: "delete"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+
+    - name: Delete certificate
+      jenkins_credential:
+        name: "certificate-id"
+        command: "delete"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+
+    - name: Delete certificate
+      jenkins_credential:
+        name: "certificate-id(pem)"
+        command: "delete"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+
+    - name: Delete scope
+      jenkins_credential:
+        name: "CUSTOM"
+        command: "delete"
+        type: "scope"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"

@@ -1,0 +1,74 @@
+- name: Add multiple Jenkins credentials
+  hosts: localhost
+  vars_files:
+    - s.yml
+
+  tasks:
+    - name: Add userAndPass credential
+      jenkins_credential:
+        name: "userpass-id"
+        type: "userAndPass"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+        description: "User and password credential"
+        username: "user1"
+        password: "pass1"
+
+    - name: Add file credential
+      jenkins_credential:
+        name: "file-id"
+        type: "file"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+        description: "File credential"
+        filePath: "my-secret.pem"
+
+    - name: Add text credential
+      jenkins_credential:
+        name: "text-id"
+        type: "text"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+        description: "Text credential"
+        text: "mysecrettext"
+
+    - name: Add githubApp credential
+      jenkins_credential:
+        name: "githubapp-id"
+        type: "githubApp"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+        description: "GitHub App credential"
+        appId: "12345"
+        filePath: "my-secret.pem"
+        owner: "github_owner"
+
+    - name: Add sshKey credential
+      jenkins_credential:
+        name: "sshkey-id"
+        type: "sshKey"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+        description: "SSH key credential"
+        username: "sshuser"
+        filePath: "my-secret.pem"
+
+    - name: Add certificate credential (p12)
+      jenkins_credential:
+        name: "certificate-id"
+        type: "certificate"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+        description: "Certificate credential"
+        password: "12345678901234"
+        filePath: "certificate.p12"
+
+    - name: Add certificate credential (pem)
+      jenkins_credential:
+        name: "certificate-id-pem"
+        type: "certificate"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+        description: "Certificate credential (pem)"
+        filePath: "cert.pem"
+        privateKeyPath: "private.key"
