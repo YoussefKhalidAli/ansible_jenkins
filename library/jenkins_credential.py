@@ -50,6 +50,15 @@ def run_module():
         owner=dict(type='str', required=False, default=''), # Owner for githubApp type
         passPhrase=dict(type='str', required=False, no_log=True), # Passphrase for sshKey type
         privateKeyPath=dict(type='str', required=False), # Private key path for certificate type
+
+        # Scope specifications parameters
+        incHostName=dict(type='str', required=False), # Include hostname for scope type
+        excHostName=dict(type='str', required=False), # Exclude hostname for scope type
+        incHostNamePort=dict(type='str', required=False), # Include hostname and port for scope type
+        excHostNamePort=dict(type='str', required=False), # Exclude hostname and port for scope type
+        incPath=dict(type='str', required=False), # Include path for scope type
+        excPath=dict(type='str', required=False), # Exclude path for scope type
+        scheme=dict(type='str', required=False), # Scheme for scope type
     )
 
     module = AnsibleModule(
@@ -135,11 +144,52 @@ def run_module():
                 )
             
         if cred_type == 'scope':
+
+            # scope optional variables
+            incHostName = module.params['incHostName']
+            excHostName = module.params['excHostName']
+            incHostNamePort = module.params['incHostNamePort']
+            excHostNamePort = module.params['excHostNamePort']
+            incPath = module.params['incPath']
+            excPath = module.params['excPath']
+            incPath = module.params['incPath']
+            excPath = module.params['excPath']
+            scheme = module.params['scheme']
+
+            specifications = []
+
             # Create a domain in Jenkins
+            if incHostName or excHostName:
+                specifications.append({
+                        "stapler-class": "com.cloudbees.plugins.credentials.domains.HostnameSpecification",
+                        "includes": incHostName,
+                        "excludes": excHostName
+                    })
+            
+            if incHostNamePort or excHostNamePort:
+                specifications.append({
+                        "stapler-class": "com.cloudbees.plugins.credentials.domains.HostnamePortSpecification",
+                        "includes": incHostNamePort,
+                        "excludes": excHostNamePort
+                    })
+                
+            if scheme:
+                specifications.append({
+                    "stapler-class": "com.cloudbees.plugins.credentials.domains.SchemeSpecification",
+                    "schemes": scheme
+                },)
+
+            if incPath or excPath:
+                specifications.append({
+                    "stapler-class": "com.cloudbees.plugins.credentials.domains.PathSpecification",
+                    "includes": incPath,
+                    "excludes": excPath
+                })
+
             payload = {
                 "name": module.params["name"],
                 "description": module.params["description"],
-                "specifications": []  # Optional: could define things like host restrictions
+                "specifications": specifications,
             }
 
             url_suffix_base = "/credentials/store/system/createDomain"
@@ -357,7 +407,7 @@ def run_module():
             ] """
             # Build the curl command for delete
             curl_cmd = base_curl_cmd.copy()
-            curl_cmd.append(f"{module.params['url']}/credentials/store/system/domain/_/credential/{module.params['name']}/config.xml")
+            curl_cmd.append(f"{module.params['url']}/credentials/store/system/domain/{module.params['scope']}/credential/{module.params['name']}/config.xml")
             
             # replace the 'POST' that follows '-X' with 'DELETE'
             x_index = curl_cmd.index('-X')

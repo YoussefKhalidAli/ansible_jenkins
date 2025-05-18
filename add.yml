@@ -1,11 +1,27 @@
 - name: Add multiple Jenkins credentials
   hosts: localhost
   vars_files:
-    - s.yml
+    - token.yml
 
   tasks:
+    - name: Add CUSTOM scope credential
+      jenkins_credential:
+        name: "CUSTOM"
+        type: "scope"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+        description: "Custom scope credential"
+        incPath: "include/path"
+        excPath: "exclude/path"
+        incHostName: "included-hostname"
+        excHostName: "excluded-hostname"
+        scheme: "http, https"
+        incHostNamePort: "included-hostname:7000"
+        excHostNamePort: "excluded-hostname:7000"
+
     - name: Add userAndPass credential
       jenkins_credential:
+        scope: "CUSTOM"
         name: "userpass-id"
         type: "userAndPass"
         jenkinsUser: "ruff"

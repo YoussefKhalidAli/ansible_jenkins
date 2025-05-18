@@ -11,6 +11,15 @@
         name: "userpass-id"
         command: "delete"
         jenkinsUser: "ruff"
+        scope: "CUSTOM"
+        token: "{{ token }}"
+
+    - name: Delete CUSTOM  scope credential
+      jenkins_credential:
+        name: "CUSTOM"
+        command: "delete"
+        type: "scope"
+        jenkinsUser: "ruff"
         token: "{{ token }}"
 
     - name: Delete file credential
