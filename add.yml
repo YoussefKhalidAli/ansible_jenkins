@@ -11,13 +11,27 @@
         jenkinsUser: "ruff"
         token: "{{ token }}"
         description: "Custom scope credential"
-        incPath: "include/path"
-        excPath: "exclude/path"
-        incHostName: "included-hostname"
-        excHostName: "excluded-hostname"
-        scheme: "http, https"
-        incHostNamePort: "included-hostname:7000"
-        excHostNamePort: "excluded-hostname:7000"
+        incPath:
+          - "include/path"
+          - "include/path2"
+        excPath:
+          - "exclude/path"
+          - "exclude/path2"
+        incHostName:
+          - "included-hostname"
+          - "included-hostname2"
+        excHostName:
+          - "excluded-hostname"
+          - "excluded-hostname2"
+        schemes:
+          - "http"
+          - "https"
+        incHostNamePort:
+          - "included-hostname:7000"
+          - "included-hostname2:7000"
+        excHostNamePort:
+          - "excluded-hostname:7000"
+          - "excluded-hostname2:7000"
 
     - name: Add userAndPass credential
       jenkins_credential:
@@ -27,7 +41,7 @@
         jenkinsUser: "ruff"
         token: "{{ token }}"
         description: "User and password credential"
-        username: "user1"
+        username: "user2"
         password: "pass1"
 
     - name: Add file credential

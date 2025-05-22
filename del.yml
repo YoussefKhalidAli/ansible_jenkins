@@ -59,15 +59,7 @@
 
     - name: Delete certificate
       jenkins_credential:
-        name: "certificate-id(pem)"
+        name: "certificate-id-pem"
         command: "delete"
-        jenkinsUser: "ruff"
-        token: "{{ token }}"
-
-    - name: Delete scope
-      jenkins_credential:
-        name: "CUSTOM"
-        command: "delete"
-        type: "scope"
         jenkinsUser: "ruff"
         token: "{{ token }}"
