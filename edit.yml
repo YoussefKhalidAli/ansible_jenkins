@@ -3,12 +3,13 @@
   hosts: localhost
   gather_facts: no
   vars_files:
-    - s.yml
+    - token.yml
 
   tasks:
     - name: Update userAndPass credential password
       jenkins_credential:
-        name: "userpass-id"
+        id: "userpass-id"
+        scope: "CUSTOM"
         type: "userAndPass"
         command: "update"
         jenkinsUser: "ruff"
@@ -19,7 +20,7 @@
 
     - name: Update file credential description (no file change)
       jenkins_credential:
-        name: "file-id"
+        id: "file-id"
         type: "file"
         command: "update"
         jenkinsUser: "ruff"
@@ -29,29 +30,29 @@
 
     - name: Update text credential secret
       jenkins_credential:
-        name: "text-id"
+        id: "text-id"
         type: "text"
         command: "update"
         jenkinsUser: "ruff"
         token: "{{ token }}"
         description: "Updated text credential"
-        text: "newsecrettext"
+        secret: "newsecrettext"
 
     - name: Update githubApp credential private key or description
       jenkins_credential:
-        name: "githubapp-id"
+        id: "githubapp-id"
         type: "githubApp"
         command: "update"
         jenkinsUser: "ruff"
         token: "{{ token }}"
         description: "Updated GitHub App credential"
-        appId: "12345"
+        appID: "12345"
         filePath: "newsecret.pem"
         owner: "github_owner"
 
     - name: Update sshKey credential passPhrase (optional)
       jenkins_credential:
-        name: "sshkey-id"
+        id: "sshkey-id"
         type: "sshKey"
         command: "update"
         jenkinsUser: "ruff"
@@ -59,4 +60,4 @@
         description: "Updated SSH key credential"
         username: "sshuser"
         filePath: "newsecret.pem"
-        passPhrase: "newpassphrase"
+        passphrase: "newpassphrase"

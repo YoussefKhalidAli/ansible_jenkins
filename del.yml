@@ -8,7 +8,7 @@
   tasks:
     - name: Delete userAndPass credential
       jenkins_credential:
-        name: "userpass-id"
+        id: "userpass-id"
         command: "delete"
         jenkinsUser: "ruff"
         scope: "CUSTOM"
@@ -16,7 +16,7 @@
 
     - name: Delete CUSTOM  scope credential
       jenkins_credential:
-        name: "CUSTOM"
+        id: "CUSTOM"
         command: "delete"
         type: "scope"
         jenkinsUser: "ruff"
@@ -24,42 +24,42 @@
 
     - name: Delete file credential
       jenkins_credential:
-        name: "file-id"
+        id: "file-id"
         command: "delete"
         jenkinsUser: "ruff"
         token: "{{ token }}"
 
     - name: Delete text credential
       jenkins_credential:
-        name: "text-id"
+        id: "text-id"
         command: "delete"
         jenkinsUser: "ruff"
         token: "{{ token }}"
 
     - name: Delete githubApp credential
       jenkins_credential:
-        name: "githubapp-id"
+        id: "githubapp-id"
         command: "delete"
         jenkinsUser: "ruff"
         token: "{{ token }}"
 
     - name: Delete sshKey credential
       jenkins_credential:
-        name: "sshkey-id"
+        id: "sshkey-id"
         command: "delete"
         jenkinsUser: "ruff"
         token: "{{ token }}"
 
     - name: Delete certificate
       jenkins_credential:
-        name: "certificate-id"
+        id: "certificate-id"
         command: "delete"
         jenkinsUser: "ruff"
         token: "{{ token }}"
 
     - name: Delete certificate
       jenkins_credential:
-        name: "certificate-id-pem"
+        id: "certificate-id-pem"
         command: "delete"
         jenkinsUser: "ruff"
         token: "{{ token }}"

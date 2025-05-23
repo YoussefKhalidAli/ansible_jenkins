@@ -6,7 +6,7 @@
   tasks:
     - name: Add CUSTOM scope credential
       jenkins_credential:
-        name: "CUSTOM"
+        id: "CUSTOM"
         type: "scope"
         jenkinsUser: "ruff"
         token: "{{ token }}"
@@ -33,10 +33,18 @@
           - "excluded-hostname:7000"
           - "excluded-hostname2:7000"
 
+    - name: Add file credential
+      jenkins_credential:
+        id: "file-id"
+        type: "file"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+        description: "File credential"
+        filePath: "my-secret.pem"
+
     - name: Add userAndPass credential
       jenkins_credential:
-        scope: "CUSTOM"
-        name: "userpass-id"
+        id: "userpass-id"
         type: "userAndPass"
         jenkinsUser: "ruff"
         token: "{{ token }}"
@@ -44,48 +52,51 @@
         username: "user2"
         password: "pass1"
 
-    - name: Add file credential
+    - name: Add userAndPass credential
       jenkins_credential:
-        name: "file-id"
-        type: "file"
+        scope: "CUSTOM"
+        id: "userpass-id"
+        type: "userAndPass"
         jenkinsUser: "ruff"
         token: "{{ token }}"
-        description: "File credential"
-        filePath: "my-secret.pem"
+        description: "User and password credential"
+        username: "user2"
+        password: "pass1"
 
     - name: Add text credential
       jenkins_credential:
-        name: "text-id"
+        id: "text-id"
         type: "text"
         jenkinsUser: "ruff"
         token: "{{ token }}"
         description: "Text credential"
-        text: "mysecrettext"
+        secret: "mysecrettext"
 
     - name: Add githubApp credential
       jenkins_credential:
-        name: "githubapp-id"
+        id: "githubapp-id"
         type: "githubApp"
         jenkinsUser: "ruff"
         token: "{{ token }}"
         description: "GitHub App credential"
-        appId: "12345"
+        appID: "12345"
         filePath: "my-secret.pem"
         owner: "github_owner"
 
     - name: Add sshKey credential
       jenkins_credential:
-        name: "sshkey-id"
+        id: "sshkey-id"
         type: "sshKey"
         jenkinsUser: "ruff"
         token: "{{ token }}"
         description: "SSH key credential"
         username: "sshuser"
         filePath: "my-secret.pem"
+        passphrase: 1234
 
     - name: Add certificate credential (p12)
       jenkins_credential:
-        name: "certificate-id"
+        id: "certificate-id"
         type: "certificate"
         jenkinsUser: "ruff"
         token: "{{ token }}"
@@ -95,7 +106,7 @@
 
     - name: Add certificate credential (pem)
       jenkins_credential:
-        name: "certificate-id-pem"
+        id: "certificate-id-pem"
         type: "certificate"
         jenkinsUser: "ruff"
         token: "{{ token }}"
