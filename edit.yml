@@ -6,6 +6,36 @@
     - token.yml
 
   tasks:
+    - name: Edit CUSTOM scope credential
+      jenkins_credential:
+        id: "CUSTOM"
+        type: "scope"
+        jenkinsUser: "ruff"
+        token: "{{ token }}"
+        command: "update"
+        description: "New custom scope credential"
+        incPath:
+          - "newinclude/path"
+          - "newinclude/path2"
+        excPath:
+          - "newexclude/path"
+          - "newexclude/path2"
+        incHostName:
+          - "newincluded-hostname"
+          - "newincluded-hostname2"
+        excHostName:
+          - "newexcluded-hostname"
+          - "newexcluded-hostname2"
+        schemes:
+          - "newhttp"
+          - "newhttps"
+        incHostNamePort:
+          - "newincluded-hostname:7000"
+          - "newincluded-hostname2:7000"
+        excHostNamePort:
+          - "newexcluded-hostname:7000"
+          - "newexcluded-hostname2:7000"
+
     - name: Update userAndPass credential password
       jenkins_credential:
         id: "userpass-id"
