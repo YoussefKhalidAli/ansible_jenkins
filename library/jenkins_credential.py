@@ -20,6 +20,7 @@ description:
   - For scoped credentials, it supports hostname, hostname:port, path, and scheme-based restrictions.
 requirements:
   - requests
+  - python >= 3.6
 author:
   - Youssef Ali (@YoussefKhalidAli)
 extends_documentation_fragment:
@@ -561,12 +562,12 @@ def run_module():
         message="",
     )
 
+    files = None # To avoid undefined variable error when not type == "files"
     auth = HTTPBasicAuth(jenkinsUser, token)
     headers = {
         crumb_field: crumb_value,
         "Content-Type": "application/x-www-form-urlencoded",
     }
-
     credentials = {}
 
     if not type == "scope":
