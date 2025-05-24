@@ -415,7 +415,8 @@ def validate_required_fields(module, cred_type):
             msg=f"Missing required fields for type '{cred_type}': {', '.join(missing)}"
         )
 
-def delete_scope_or_credential(module, url, headers, auth, id,  scope, command):
+
+def delete_scope_or_credential(module, url, headers, auth, id, scope, command):
     try:
         if module.params["type"] == "scope":
             delete_url = f"{url}/credentials/store/system/domain/{id}/doDelete"
@@ -436,8 +437,10 @@ def delete_scope_or_credential(module, url, headers, auth, id,  scope, command):
 
     except requests.exceptions.RequestException as e:
         module.fail_json(
-            msg=f"Failed to delete {id} {'before updating' if command == 'update' else ''}", details=response.text
+            msg=f"Failed to delete {id} {'before updating' if command == 'update' else ''}",
+            details=response.text,
         )
+
 
 # Main function to run the Ansible module
 def run_module():
@@ -599,10 +602,14 @@ def run_module():
 
         # If updating, we need to delete the existing credential first
         if command == "update":
-            if credential_exists( # Check if credentials exists
+            if credential_exists(  # Check if credentials exists
                 url, scope, id, jenkinsUser, token
-            ) or domain_exists(url, id, jenkinsUser, token): # Check if domain exists
-                delete_scope_or_credential(module, url, headers, auth, id,  scope, command)
+            ) or domain_exists(
+                url, id, jenkinsUser, token
+            ):  # Check if domain exists
+                delete_scope_or_credential(
+                    module, url, headers, auth, id, scope, command
+                )
 
         if type == "scope":
 
@@ -777,7 +784,7 @@ def run_module():
                     )
             payload = {"": "0", "credentials": credentials}
 
-    else: # Delete
+    else:  # Delete
 
         # Delete command requires id
         if not id:
@@ -790,12 +797,16 @@ def run_module():
     if not type == "file":
         data = urllib.parse.urlencode({"json": json.dumps(payload)})
 
-    if not type =="scope" and not scope == "_" : # Check if custom scope exists
+    if not type == "scope" and not scope == "_":  # Check if custom scope exists
         if not domain_exists(url, scope, jenkinsUser, token):
             module.fail_json(msg=f"Domain {scope} doesn't exists")
     try:
         response = requests.post(
-            f"{url}/credentials/store/system/domain/{scope}/createCredentials" if not type == "scope" else f"{url}/credentials/store/system/createDomain", # Create scope or domain
+            (
+                f"{url}/credentials/store/system/domain/{scope}/createCredentials"
+                if not type == "scope"
+                else f"{url}/credentials/store/system/createDomain"
+            ),  # Create scope or domain
             headers=headers,
             auth=auth,
             data=data,
