@@ -8,28 +8,28 @@
       jenkins_credential:
         id: "CUSTOM"
         type: "scope"
-        jenkinsUser: "ruff"
+        jenkins_user: "ruff"
         token: "{{ token }}"
         description: "Custom scope credential"
-        incPath:
+        inc_path:
           - "include/path"
           - "include/path2"
-        excPath:
+        exc_path:
           - "exclude/path"
           - "exclude/path2"
-        incHostName:
+        inc_hostname:
           - "included-hostname"
           - "included-hostname2"
-        excHostName:
+        exc_hostname:
           - "excluded-hostname"
           - "excluded-hostname2"
         schemes:
           - "http"
           - "https"
-        incHostNamePort:
+        inc_hostname_port:
           - "included-hostname:7000"
           - "included-hostname2:7000"
-        excHostNamePort:
+        exc_hostname_port:
           - "excluded-hostname:7000"
           - "excluded-hostname2:7000"
 
@@ -37,16 +37,16 @@
       jenkins_credential:
         id: "file-id"
         type: "file"
-        jenkinsUser: "ruff"
+        jenkins_user: "ruff"
         token: "{{ token }}"
         description: "File credential"
-        filePath: "my-secret.pem"
+        file_path: "my-secret.pem"
 
     - name: Add userAndPass credential
       jenkins_credential:
         id: "userpass-id"
         type: "userAndPass"
-        jenkinsUser: "ruff"
+        jenkins_user: "ruff"
         token: "{{ token }}"
         description: "User and password credential"
         username: "user2"
@@ -57,7 +57,7 @@
         scope: "CUSTOM"
         id: "userpass-id"
         type: "userAndPass"
-        jenkinsUser: "ruff"
+        jenkins_user: "ruff"
         token: "{{ token }}"
         description: "User and password credential"
         username: "user2"
@@ -67,7 +67,7 @@
       jenkins_credential:
         id: "text-id"
         type: "text"
-        jenkinsUser: "ruff"
+        jenkins_user: "ruff"
         token: "{{ token }}"
         description: "Text credential"
         secret: "mysecrettext"
@@ -76,40 +76,40 @@
       jenkins_credential:
         id: "githubapp-id"
         type: "githubApp"
-        jenkinsUser: "ruff"
+        jenkins_user: "ruff"
         token: "{{ token }}"
         description: "GitHub App credential"
         appID: "12345"
-        filePath: "my-secret.pem"
+        file_path: "my-secret.pem"
         owner: "github_owner"
 
     - name: Add sshKey credential
       jenkins_credential:
         id: "sshkey-id"
         type: "sshKey"
-        jenkinsUser: "ruff"
+        jenkins_user: "ruff"
         token: "{{ token }}"
         description: "SSH key credential"
         username: "sshuser"
-        filePath: "my-secret.pem"
+        file_path: "my-secret.pem"
         passphrase: 1234
 
     - name: Add certificate credential (p12)
       jenkins_credential:
         id: "certificate-id"
         type: "certificate"
-        jenkinsUser: "ruff"
+        jenkins_user: "ruff"
         token: "{{ token }}"
         description: "Certificate credential"
         password: "12345678901234"
-        filePath: "certificate.p12"
+        file_path: "certificate.p12"
 
     - name: Add certificate credential (pem)
       jenkins_credential:
         id: "certificate-id-pem"
         type: "certificate"
-        jenkinsUser: "ruff"
+        jenkins_user: "ruff"
         token: "{{ token }}"
         description: "Certificate credential (pem)"
-        filePath: "cert.pem"
-        privateKeyPath: "private.key"
+        file_path: "cert.pem"
+        private_key_path: "private.key"

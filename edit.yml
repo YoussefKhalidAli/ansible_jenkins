@@ -10,84 +10,84 @@
       jenkins_credential:
         id: "CUSTOM"
         type: "scope"
-        jenkinsUser: "ruff"
+        jenkins_user: "ruff"
         token: "{{ token }}"
-        command: "update"
+        state: "present"
         description: "New custom scope credential"
-        incPath:
+        inc_path:
           - "newinclude/path"
           - "newinclude/path2"
-        excPath:
+        exc_path:
           - "newexclude/path"
           - "newexclude/path2"
-        incHostName:
+        inc_hostname:
           - "newincluded-hostname"
           - "newincluded-hostname2"
-        excHostName:
+        exc_hostname:
           - "newexcluded-hostname"
           - "newexcluded-hostname2"
         schemes:
           - "newhttp"
           - "newhttps"
-        incHostNamePort:
+        inc_hostname_port:
           - "newincluded-hostname:7000"
           - "newincluded-hostname2:7000"
-        excHostNamePort:
+        exc_hostname_port:
           - "newexcluded-hostname:7000"
           - "newexcluded-hostname2:7000"
 
-    - name: Update userAndPass credential password
+    - name: Edit userAndPass credential password
       jenkins_credential:
         id: "userpass-id"
         scope: "CUSTOM"
         type: "userAndPass"
-        command: "update"
-        jenkinsUser: "ruff"
+        state: "present"
+        jenkins_user: "ruff"
         token: "{{ token }}"
-        description: "Updated user/pass credential"
+        description: "Edit user/pass credential"
         username: "user2"
         password: "newpass1"
 
-    - name: Update file credential description (no file change)
+    - name: Edit file credential description (no file change)
       jenkins_credential:
         id: "file-id"
         type: "file"
-        command: "update"
-        jenkinsUser: "ruff"
+        state: "present"
+        jenkins_user: "ruff"
         token: "{{ token }}"
-        description: "Updated file credential description"
-        filePath: "newsecret.pem"
+        description: "presentd file credential description"
+        file_path: "newsecret.pem"
 
-    - name: Update text credential secret
+    - name: Edit text credential secret
       jenkins_credential:
         id: "text-id"
         type: "text"
-        command: "update"
-        jenkinsUser: "ruff"
+        state: "present"
+        jenkins_user: "ruff"
         token: "{{ token }}"
-        description: "Updated text credential"
+        description: "edited text credential"
         secret: "newsecrettext"
 
-    - name: Update githubApp credential private key or description
+    - name: Edit githubApp credential private key or description
       jenkins_credential:
         id: "githubapp-id"
         type: "githubApp"
-        command: "update"
-        jenkinsUser: "ruff"
+        state: "present"
+        jenkins_user: "ruff"
         token: "{{ token }}"
-        description: "Updated GitHub App credential"
+        description: "edited GitHub App credential"
         appID: "12345"
-        filePath: "newsecret.pem"
+        file_path: "newsecret.pem"
         owner: "github_owner"
 
-    - name: Update sshKey credential passPhrase (optional)
+    - name: Edit sshKey credential passPhrase (optional)
       jenkins_credential:
         id: "sshkey-id"
         type: "sshKey"
-        command: "update"
-        jenkinsUser: "ruff"
+        state: "present"
+        jenkins_user: "ruff"
         token: "{{ token }}"
-        description: "Updated SSH key credential"
+        description: "edited SSH key credential"
         username: "sshuser"
-        filePath: "newsecret.pem"
+        file_path: "newsecret.pem"
         passphrase: "newpassphrase"

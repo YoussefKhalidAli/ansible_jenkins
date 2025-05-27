@@ -9,57 +9,57 @@
     - name: Delete userAndPass credential
       jenkins_credential:
         id: "userpass-id"
-        command: "delete"
-        jenkinsUser: "ruff"
+        state: "absent"
+        jenkins_user: "ruff"
         scope: "CUSTOM"
         token: "{{ token }}"
 
     - name: Delete CUSTOM  scope credential
       jenkins_credential:
         id: "CUSTOM"
-        command: "delete"
+        state: "absent"
         type: "scope"
-        jenkinsUser: "ruff"
+        jenkins_user: "ruff"
         token: "{{ token }}"
 
     - name: Delete file credential
       jenkins_credential:
         id: "file-id"
-        command: "delete"
-        jenkinsUser: "ruff"
+        state: "absent"
+        jenkins_user: "ruff"
         token: "{{ token }}"
 
     - name: Delete text credential
       jenkins_credential:
         id: "text-id"
-        command: "delete"
-        jenkinsUser: "ruff"
+        state: "absent"
+        jenkins_user: "ruff"
         token: "{{ token }}"
 
     - name: Delete githubApp credential
       jenkins_credential:
         id: "githubapp-id"
-        command: "delete"
-        jenkinsUser: "ruff"
+        state: "absent"
+        jenkins_user: "ruff"
         token: "{{ token }}"
 
     - name: Delete sshKey credential
       jenkins_credential:
         id: "sshkey-id"
-        command: "delete"
-        jenkinsUser: "ruff"
+        state: "absent"
+        jenkins_user: "ruff"
         token: "{{ token }}"
 
     - name: Delete certificate
       jenkins_credential:
         id: "certificate-id"
-        command: "delete"
-        jenkinsUser: "ruff"
+        state: "absent"
+        jenkins_user: "ruff"
         token: "{{ token }}"
 
     - name: Delete certificate
       jenkins_credential:
         id: "certificate-id-pem"
-        command: "delete"
-        jenkinsUser: "ruff"
+        state: "absent"
+        jenkins_user: "ruff"
         token: "{{ token }}"
