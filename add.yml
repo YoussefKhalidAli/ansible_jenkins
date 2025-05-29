@@ -52,7 +52,7 @@
         username: "user2"
         password: "pass1"
 
-    - name: Add userAndPass credential
+    - name: Add userAndPass credential to CUSTOM
       jenkins_credential:
         scope: "CUSTOM"
         id: "userpass-id"
@@ -62,6 +62,18 @@
         description: "User and password credential"
         username: "user2"
         password: "pass1"
+
+    - name: Add userAndPass credential to folder
+      jenkins_credential:
+        id: "tst-userpass-id"
+        type: "userAndPass"
+        jenkins_user: "ruff"
+        token: "{{ token }}"
+        description: "tst User and password credential"
+        username: "tstuser"
+        password: "tstpass1"
+        location: "folder"
+        url: "http://localhost:8080/job/tstfolder"
 
     - name: Add text credential
       jenkins_credential:

@@ -14,6 +14,15 @@
         scope: "CUSTOM"
         token: "{{ token }}"
 
+    - name: Delete folder userAndPass credential
+      jenkins_credential:
+        id: "tst-userpass-id"
+        state: "absent"
+        jenkins_user: "ruff"
+        token: "{{ token }}"
+        location: "folder"
+        url: "http://localhost:8080/job/tstfolder/"
+
     - name: Delete CUSTOM  scope credential
       jenkins_credential:
         id: "CUSTOM"
