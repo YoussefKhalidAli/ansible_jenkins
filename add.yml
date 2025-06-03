@@ -4,11 +4,24 @@
     - token.yml
 
   tasks:
+    - name: Generate token
+      jenkins_credential:
+        name: "test-token"
+        type: "token"
+        jenkins_user: "ruffnut"
+        jenkins_password: "barf"
+      register: token_result
+
+    - name: Set token variable
+      debug:
+        msg: "Token generated: {{ token_result }}"
+      ignore_errors: yes
+
     - name: Add CUSTOM scope credential
       jenkins_credential:
         id: "CUSTOM"
         type: "scope"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
         description: "Custom scope credential"
         inc_path:
@@ -33,53 +46,53 @@
           - "excluded-hostname:7000"
           - "excluded-hostname2:7000"
 
+    - name: Add user_and_pass credential
+      jenkins_credential:
+        id: "userpass-id"
+        type: "user_and_pass"
+        jenkins_user: "ruffnut"
+        token: "{{ token }}"
+        description: "User and password credential"
+        username: "user2"
+        password: "pass1"
+
     - name: Add file credential
       jenkins_credential:
         id: "file-id"
         type: "file"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
         description: "File credential"
         file_path: "my-secret.pem"
 
-    - name: Add userAndPass credential
-      jenkins_credential:
-        id: "userpass-id"
-        type: "userAndPass"
-        jenkins_user: "ruff"
-        token: "{{ token }}"
-        description: "User and password credential"
-        username: "user2"
-        password: "pass1"
-
-    - name: Add userAndPass credential to CUSTOM
+    - name: Add user_and_pass credential to CUSTOM
       jenkins_credential:
         scope: "CUSTOM"
         id: "userpass-id"
-        type: "userAndPass"
-        jenkins_user: "ruff"
+        type: "user_and_pass"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
         description: "User and password credential"
         username: "user2"
         password: "pass1"
 
-    - name: Add userAndPass credential to folder
+    - name: Add user_and_pass credential to folder
       jenkins_credential:
         id: "tst-userpass-id"
-        type: "userAndPass"
-        jenkins_user: "ruff"
+        type: "user_and_pass"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
         description: "tst User and password credential"
         username: "tstuser"
         password: "tstpass1"
         location: "folder"
-        url: "http://localhost:8080/job/tstfolder"
+        url: "http://localhost:8080/job/test"
 
     - name: Add text credential
       jenkins_credential:
         id: "text-id"
         type: "text"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
         description: "Text credential"
         secret: "mysecrettext"
@@ -87,30 +100,30 @@
     - name: Add githubApp credential
       jenkins_credential:
         id: "githubapp-id"
-        type: "githubApp"
-        jenkins_user: "ruff"
+        type: "github_app"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
         description: "GitHub App credential"
         appID: "12345"
-        file_path: "my-secret.pem"
+        file_path: "github.pem"
         owner: "github_owner"
 
     - name: Add sshKey credential
       jenkins_credential:
         id: "sshkey-id"
-        type: "sshKey"
-        jenkins_user: "ruff"
+        type: "ssh_key"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
         description: "SSH key credential"
         username: "sshuser"
-        file_path: "my-secret.pem"
+        file_path: "ssh_key"
         passphrase: 1234
 
     - name: Add certificate credential (p12)
       jenkins_credential:
         id: "certificate-id"
         type: "certificate"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
         description: "Certificate credential"
         password: "12345678901234"
@@ -120,7 +133,7 @@
       jenkins_credential:
         id: "certificate-id-pem"
         type: "certificate"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
         description: "Certificate credential (pem)"
         file_path: "cert.pem"

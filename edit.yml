@@ -6,11 +6,26 @@
     - token.yml
 
   tasks:
+    - name: Generate token
+      jenkins_credential:
+        id: "c5fa9650-8aca-414a-84ab-555829e97ee0"
+        name: "test-token"
+        type: "token"
+        jenkins_user: "ruffnut"
+        jenkins_password: "barf"
+        force: true
+      register: token_result
+
+    - name: Set token variable
+      debug:
+        msg: "Token generated: {{ token_result }}"
+      ignore_errors: yes
+
     - name: Edit CUSTOM scope credential
       jenkins_credential:
         id: "CUSTOM"
         type: "scope"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
         state: "present"
         description: "New custom scope credential"
@@ -35,59 +50,65 @@
         exc_hostname_port:
           - "newexcluded-hostname:7000"
           - "newexcluded-hostname2:7000"
+        force: true
 
     - name: Edit userAndPass credential password
       jenkins_credential:
         id: "userpass-id"
         scope: "CUSTOM"
-        type: "userAndPass"
+        type: "user_and_pass"
         state: "present"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
         description: "Edit user/pass credential"
         username: "user2"
         password: "newpass1"
+        force: true
 
     - name: Edit file credential description (no file change)
       jenkins_credential:
         id: "file-id"
         type: "file"
         state: "present"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
         description: "presentd file credential description"
         file_path: "newsecret.pem"
+        force: true
 
     - name: Edit text credential secret
       jenkins_credential:
         id: "text-id"
         type: "text"
         state: "present"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
         description: "edited text credential"
         secret: "newsecrettext"
+        force: true
 
     - name: Edit githubApp credential private key or description
       jenkins_credential:
         id: "githubapp-id"
-        type: "githubApp"
+        type: "github_app"
         state: "present"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
         description: "edited GitHub App credential"
         appID: "12345"
         file_path: "newsecret.pem"
         owner: "github_owner"
+        force: true
 
     - name: Edit sshKey credential passPhrase (optional)
       jenkins_credential:
         id: "sshkey-id"
-        type: "sshKey"
+        type: "ssh_key"
         state: "present"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
         description: "edited SSH key credential"
         username: "sshuser"
         file_path: "newsecret.pem"
         passphrase: "newpassphrase"
+        force: true

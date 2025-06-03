@@ -10,65 +10,73 @@
       jenkins_credential:
         id: "userpass-id"
         state: "absent"
-        jenkins_user: "ruff"
-        scope: "CUSTOM"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
 
     - name: Delete folder userAndPass credential
       jenkins_credential:
         id: "tst-userpass-id"
         state: "absent"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
         location: "folder"
         url: "http://localhost:8080/job/tstfolder/"
+
+    - name: Revoke token
+      jenkins_credential:
+        id: "c5fa9650-8aca-414a-84ab-555829e97ee0"
+        name: "test-token"
+        state: "absent"
+        type: "token"
+        jenkins_user: "ruffnut"
+        jenkins_password: "barf"
 
     - name: Delete CUSTOM  scope credential
       jenkins_credential:
         id: "CUSTOM"
         state: "absent"
         type: "scope"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
 
     - name: Delete file credential
       jenkins_credential:
         id: "file-id"
         state: "absent"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
 
     - name: Delete text credential
       jenkins_credential:
         id: "text-id"
         state: "absent"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
 
     - name: Delete githubApp credential
       jenkins_credential:
         id: "githubapp-id"
         state: "absent"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
 
     - name: Delete sshKey credential
       jenkins_credential:
         id: "sshkey-id"
         state: "absent"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
 
     - name: Delete certificate
       jenkins_credential:
         id: "certificate-id"
         state: "absent"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
 
     - name: Delete certificate
       jenkins_credential:
         id: "certificate-id-pem"
         state: "absent"
-        jenkins_user: "ruff"
+        jenkins_user: "ruffnut"
         token: "{{ token }}"
