@@ -4,7 +4,6 @@ library/job.py
 job.yml
 job.xml
 old.yml
-jenkins_credential
 refs
 keys
 keys.pub

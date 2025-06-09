@@ -7,15 +7,16 @@
     - name: Generate token
       jenkins_credential:
         name: "test-token"
-        type: "token"
         jenkins_user: "ruffnut"
         jenkins_password: "barf"
+        type: "token"
+      no_log: yes
       register: token_result
 
-    - name: Set token variable
-      debug:
-        msg: "Token generated: {{ token_result }}"
-      ignore_errors: yes
+    - name: Set token facts
+      set_fact:
+        token: "{{ token_result.token }}"
+        tokenUuid: "{{ token_result.tokenUuid }}"
 
     - name: Add CUSTOM scope credential
       jenkins_credential:
