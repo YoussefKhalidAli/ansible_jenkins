@@ -4,6 +4,13 @@
     - token.yml
 
   tasks:
+    - name: test
+      jenkins_credential:
+        type: "user_and_pass"
+        jenkins_user: "ruffnut"
+        username: "ss"
+        password: "wa"
+
     - name: Generate token
       jenkins_credential:
         name: "test-token"
